@@ -91,7 +91,7 @@ const AddBlog = () => {
 
                         </div>
 
-                        <div className="form-control">
+                        <div className="form-control ">
                             <label className="label">
                                 <span className="label-text text-white font-bold">Category</span>
                             </label>

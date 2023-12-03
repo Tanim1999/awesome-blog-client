@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useBlogs from "../hooks/useBlogs";
+import { Link } from "react-router-dom";
 
 
 const AllBlog = () => {
@@ -43,9 +44,9 @@ const AllBlog = () => {
                 </form>
                 <button onClick={()=>{setActive(!active)}} className={`btn ${active?"bg-red-700":"bg-black"} text-white`}>Default</button>
             </div>
-            <div >
+            <div  >
                 {blogs.map((blog) => (
-                    <div key={blog._id} className="card lg:card-side bg-base-100 shadow-xl">
+                    <div key={blog._id} className="card my-5 lg:card-side bg-base-100 shadow-xl">
                         <figure><img className="h-[25rem]" src={blog.imageURL} /></figure>
                         <div className="card-body">
                             <h2 className="card-title">{blog.title}</h2>
@@ -53,7 +54,7 @@ const AllBlog = () => {
 
                             <p>{blog.shortDescription}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn bg-black text-white">Details</button>
+                                <Link to={`/blogDetails/${blog._id}`}><button className="btn bg-black text-white">Details</button></Link>
                                 <button className="btn bg-black text-white">Add to wishlist</button>
                             </div>
                         </div>
