@@ -1,8 +1,29 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/_c382725a-1035-4b3b-8e32-92fe9d710720.jpeg"
+import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
+
 
 
 const Navbar = () => {
+
+   const navigate= useNavigate()
+    
+    const {user,logOut} = useAuth()
+    const handleLogout = () => {
+        logOut()
+            .then(() => { 
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Logged out successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Okay'
+                })
+                navigate('/logIn')
+                
+            })
+            .catch(error => console.log(error))
+    }
 
     const navLinks =
         <>
@@ -43,11 +64,24 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-5">
+                    {user? 
+                    <>   
+                    <img className="w-14 rounded-full" src={user.photoURL} />
+                    <p className="text-xl font-bold">{user.displayName}</p>
+                    <button onClick={handleLogout} className="btn bg-black text-white">Logout</button>   
+                    
+                    </>
+                    
+                    
+                    
+                    :<>  
+                    <Link to="/register"><button className="btn bg-black text-white">Sign up</button></Link>   
+                    <Link to="/logIn"><button className="btn bg-black text-white">Log in</button></Link>   
+                    
+                    </>
+                    }
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar ">
-                        <div className="w-fit rounded-full">
-
-
-                        </div>
+                        
                     </label>
 
 
