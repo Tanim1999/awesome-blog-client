@@ -4,9 +4,11 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
+    const navigate= useNavigate()
 
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -35,7 +37,12 @@ const Register = () => {
         const authResult = await createUser(data.email, data.password);
         const loggedUser = authResult.user;
         console.log("Logged user information", loggedUser);
-        if(loggedUser){
+        
+
+        
+        await updateUserProfile(data.name,photoURL);
+    
+        if(loggedUser.photoURL){
             Swal.fire({
                 title: 'Success!',
                 text: 'Registered successfully',
@@ -43,12 +50,13 @@ const Register = () => {
                 confirmButtonText: 'Okay'
             })
             reset()
+            navigate("/")
             
 
         }
-
+    }
         
-        await updateUserProfile(data.name,photoURL);}
+
 
         //  Creating user entry in the database
         
