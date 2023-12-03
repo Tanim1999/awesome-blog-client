@@ -5,6 +5,9 @@ import useBlogs from "../hooks/useBlogs";
 const AllBlog = () => {
 
     const [search, setSearch] = useState('')
+    
+
+    const[active,setActive]=useState(false)
     const [blogs,refetch] = useBlogs(search)
 
     const handleSearch = (e) => {
@@ -18,13 +21,15 @@ const AllBlog = () => {
         
     }
 
+   
+
 
 
     return (
         <div className="max-w-screen-xl mx-auto">
 
-            <div>
-                <form onSubmit={handleSearch} className="join">
+            <div className="flex justify-center my-7">
+                <form onSubmit={handleSearch} className="join ">
                     <div>
                         <div>
                             <input name="search" className="input input-bordered join-item" placeholder="Search" />
@@ -33,9 +38,10 @@ const AllBlog = () => {
                     
                     <div className="indicator">
                         
-                        <button type="submit"  className="btn join-item">Search</button>
+                        <button type="submit"  className="btn btn-neutral join-item">Search</button>
                     </div>
                 </form>
+                <button onClick={()=>{setActive(!active)}} className={`btn ${active?"bg-red-700":"bg-black"} text-white`}>Default</button>
             </div>
             <div >
                 {blogs.map((blog) => (
@@ -48,6 +54,7 @@ const AllBlog = () => {
                             <p>{blog.shortDescription}</p>
                             <div className="card-actions justify-end">
                                 <button className="btn bg-black text-white">Details</button>
+                                <button className="btn bg-black text-white">Add to wishlist</button>
                             </div>
                         </div>
                     </div>
