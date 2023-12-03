@@ -95,7 +95,7 @@ const AddBlog = () => {
                             <label className="label">
                                 <span className="label-text text-white font-bold">Category</span>
                             </label>
-                            <select {...register('category', { required: true })} className="select select-bordered">
+                            <select {...register('category', { required: true })} className="select select-bordered" required>
                                 <option value="" className="font-bold" disabled>
                                     Select Category:
                                 </option>
