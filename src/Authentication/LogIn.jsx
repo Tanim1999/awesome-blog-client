@@ -72,7 +72,7 @@ const LogIn = () => {
                
                 e.target.reset()
                
-                navigate('/dashboard/home')
+                navigate('/')
                 
 
             })
@@ -115,7 +115,7 @@ const LogIn = () => {
 
                                     </div>
                                     <div className="form-control mt-6">
-                                        
+
 
                                         <button value=" login" type=' submit' className="btn text-white bg-black">Login</button>
                                     </div>

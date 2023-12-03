@@ -7,6 +7,7 @@ import FeaturedBlogs from "../pages/FeaturedBlogs";
 import WishList from "../pages/WishList";
 import LogIn from "../Authentication/LogIn";
 import Register from "../Authentication/Register";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
         {
             path: '/',
             element: <Home></Home>
+        }, 
+        {
+            path: '*',
+            element: <Error></Error>
         }, 
         {
           path: 'addBlog', 
