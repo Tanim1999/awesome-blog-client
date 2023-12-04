@@ -12,7 +12,7 @@ const useBlog = (id) => {
 
 
     const {data: blog = [],refetch:redone,} = useQuery({
-        queryKey: ['blog',], 
+        queryKey: ['blog',id], 
         
         
         queryFn: async() =>{
