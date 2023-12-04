@@ -11,8 +11,8 @@ const useBlog = (id) => {
    
 
 
-    const {data: blog = [],refetch,} = useQuery({
-        queryKey: ['blog'], 
+    const {data: blog = [],refetch:redone,} = useQuery({
+        queryKey: ['blog',], 
         
         
         queryFn: async() =>{
@@ -26,7 +26,7 @@ const useBlog = (id) => {
     
     
     
-    return [blog,refetch]
+    return [blog,redone]
 
 
 };

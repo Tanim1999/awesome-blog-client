@@ -1,11 +1,22 @@
 import { useState } from "react";
 import useBlogs from "../hooks/useBlogs";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
+
 
 
 const AllBlog = () => {
+    const{user}= useAuth()
 
     const [search, setSearch] = useState('')
+    
+    const axiosPublic= useAxiosPublic()
+    
+
     
 
     const[active,setActive]=useState(false)
@@ -20,7 +31,56 @@ const AllBlog = () => {
         setSearch(searchText)
         
         
+        
+        
     }
+    const handleAddToWishList = async (blog)=>{
+        
+      
+    
+     const  uploadInfo = {
+        title: blog.title,
+        imageURL: blog.imageURL,
+        category: blog.category,
+        shortDescription: blog.shortDescription,
+        longDescription: blog.longDescription,
+        wishlistOf: user.displayName,
+        blogId:blog._id,
+        email: user.email,
+        
+    }
+    const wishlist = await axiosPublic.post('/wishlists', uploadInfo);
+       
+        console.log("aftr up",wishlist)
+        if (wishlist.data.insertedId) {
+            
+            
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${blog.title} is added successfully.`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+          
+
+        } else{
+             Swal.fire({
+                position: "top-end",
+                icon: "info",
+                title: `${blog.title} already exist in the wish list.`,
+                showConfirmButton: false,
+                timer: 3000
+            });
+            
+        }
+        
+
+
+     
+     
+    }
+   
 
    
 
@@ -55,7 +115,9 @@ const AllBlog = () => {
                             <p>{blog.shortDescription}</p>
                             <div className="card-actions justify-end">
                                 <Link to={`/blogDetails/${blog._id}`}><button className="btn bg-black text-white">Details</button></Link>
-                                <button className="btn bg-black text-white">Add to wishlist</button>
+                                {user? <button 
+                                onClick={()=>handleAddToWishList(blog)} 
+                                className="btn bg-black text-white">Add to wishlist</button>:<Link to="/logIn"><button className="btn bg-black text-white">Add to wishlist</button></Link>}
                             </div>
                         </div>
                     </div>
