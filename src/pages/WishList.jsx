@@ -1,16 +1,54 @@
 import { Link } from "react-router-dom";
 import useWishlist from "../hooks/useWishlist";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 
 const WishList = () => {
-    const [wishlists]=useWishlist()
+    const [wishlists,refetch]=useWishlist()
+    const axiosPublic = useAxiosPublic()
+
+
     const handleDelete = (id)=>{
+      
       console.log(id)
+      Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes remove it!"
+      }).then((result) => {
+          if (result.isConfirmed) {
+
+              axiosPublic.delete(`/wishlists/${id}`)
+                  .then(res => {
+                      if (res.data.deletedCount > 0) {
+                          refetch();
+                          Swal.fire({
+                              title: "Removed!",
+                              text: "Removed from the wishlist.",
+                              icon: "success"
+                          });
+                      }
+                  })
+          }
+      });
     }
     return (
         <div>
-            <div>
-                hello boss
+            <div className="my-5">
+
+                <h2 className=" text-3xl font-bold text-center ">
+                    Wishlist
+                </h2>
+               {wishlists.length==0? <>
+               <p className=" my-5 text-xl text-center font-bold text-red-600">There is no blog in the wish list.</p>
+               </>
+               :
+               ''}
             </div>
             <div  >
                 {wishlists.map((wishlist) => (

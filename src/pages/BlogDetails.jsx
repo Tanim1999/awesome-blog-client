@@ -1,4 +1,4 @@
-import { Link,  useParams, } from "react-router-dom";
+import { Link, useParams, } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
@@ -8,11 +8,11 @@ import useBlog from "../hooks/useBlog";
 
 
 const BlogDetails = () => {
-    const {id}=useParams()
-    console.log ('kothay chila param bro',id)
-    const [blog]=useBlog(id)
+    const { id } = useParams()
+    console.log('kothay chila param bro', id)
+    const [blog] = useBlog(id)
 
-    
+
     const [comments, refetch] = useComments(blog._id)
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
@@ -87,11 +87,19 @@ const BlogDetails = () => {
                 <div className="flex flex-col w-[80%]  mx-auto my-5 gap-5">
                     {comments.map((comment) => (
                         <div key={comment._id} >
-                            <div className="chat chat-start">
-                                <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full">
-                                        <img alt="Tailwind CSS chat bubble component" src={comment.commenterDp} />
+                            <div className="chat  chat-start">
+                                <div >
+                                    <div className="flex flex-row gap-4 items-center">
+                                        <div className=" chat-image h-14 w-14  avatar">
+                                            <img className="rounded-full " src={comment.commenterDp} />
+
+                                        </div>
+                                        <div>
+                                            <p className="font-bold">{comment.commenterName}</p>
+                                        </div>
                                     </div>
+
+
                                 </div>
                                 <div className="chat-bubble">{comment.comment}</div>
                             </div>
