@@ -3,7 +3,8 @@
 const FeaturedBlogs = () => {
     return (
         <div>
-            featured blogs
+            featuredBlogs
+            
         </div>
     );
 };
