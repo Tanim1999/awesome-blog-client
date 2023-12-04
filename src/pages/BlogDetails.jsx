@@ -1,14 +1,19 @@
-import { Link, useLoaderData, } from "react-router-dom";
+import { Link,  useParams, } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useComments from "../hooks/useComments";
+import useBlog from "../hooks/useBlog";
 
 
 const BlogDetails = () => {
-    const { _id, imageURL, title, category, shortDescription, longDescription, email } = useLoaderData()
-    const [comments, refetch] = useComments(_id)
+    const {id}=useParams()
+    console.log ('kothay chila param bro',id)
+    const [blog]=useBlog(id)
+
+    
+    const [comments, refetch] = useComments(blog._id)
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
@@ -23,7 +28,7 @@ const BlogDetails = () => {
             commenterEmail: user.email,
             commenterDp: user.photoURL,
             date: new Date().toISOString,
-            commentId: _id
+            commentId: blog._id
 
         }
         const commented = await axiosPublic.post('/comments', commentInfo);
@@ -50,20 +55,20 @@ const BlogDetails = () => {
 
         <div>
             <div className="card my-5 lg:card-normal bg-base-100 shadow-xl">
-                <figure><img className="h-[25rem]" src={imageURL} /></figure>
+                <figure><img className="h-[25rem]" src={blog.imageURL} /></figure>
                 <div className="card-body">
-                    <h2 className="card-title">{title}</h2>
-                    <div className="badge badge-secondary bg-black">{category}</div>
+                    <h2 className="card-title">{blog.title}</h2>
+                    <div className="badge badge-secondary bg-black">{blog.category}</div>
 
-                    <p>{shortDescription}</p>
-                    <p>{longDescription}</p>
+                    <p>{blog.shortDescription}</p>
+                    <p>{blog.longDescription}</p>
                     <div className="card-actions justify-end">
-                        {user.email === email ? <Link to={`/updateBlog/${_id}`}><button className="btn bg-black text-white">Edit blog</button></Link> : ""}
+                        {user.email === blog.email ? <Link to={`/updateBlog/${blog._id}`}><button className="btn bg-black text-white">Edit blog</button></Link> : ""}
 
                     </div>
                 </div>
                 <div className="flex justify-center items-center">
-                    {user.email === email ? <><p className="font-bold">You can not comment on your own blog.</p></>
+                    {user.email === blog.email ? <><p className="font-bold">You can not comment on your own blog.</p></>
                         :
                         <>
                             <form className="flex flex-col items-end " onSubmit={handleComment}>

@@ -10,6 +10,7 @@ import Register from "../Authentication/Register";
 import Error from "../pages/Error";
 import PrivateRoute from "./PrivateRoute";
 import BlogDetails from "../pages/BlogDetails";
+import UpdateBlog from "../pages/UpdateBlog";
 
 const router = createBrowserRouter([
     {
@@ -51,7 +52,13 @@ const router = createBrowserRouter([
         {
             path: 'blogDetails/:id',
             element: <PrivateRoute><BlogDetails></BlogDetails></PrivateRoute>,
-            loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`)
+           
+            
+          },
+        {
+            path: 'updateBlog/:id',
+            element: <PrivateRoute><UpdateBlog></UpdateBlog></PrivateRoute>,
+            
             
           },
       ]
