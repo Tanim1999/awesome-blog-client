@@ -1,8 +1,9 @@
-Website name: Awesome Blog
-Live site: https://656df7fdeb29fa0e151c4966--teal-khapse-f882a2.netlify.app
+
 # Awesome Blog Website
 
-Welcome to our Awesome Blog Website! This platform is designed to provide a seamless and engaging experience for both readers and bloggers.
+Welcome to Awesome Blog! This platform is designed to provide a seamless and engaging experience for both readers and bloggers.
+
+Website: [Awesome blog](https://6571cf5f9aa73914335634cb--teal-khapse-f882a2.netlify.app)
 
 ## Features:
 
@@ -21,6 +22,12 @@ Welcome to our Awesome Blog Website! This platform is designed to provide a seam
 5. **Interactive Blogging Community:**
    - Engage with fellow bloggers and readers through comments. Share your thoughts, experiences, and insights to create a vibrant community.
 
+##Tachnologies used:
+- Front end: React, React-router-dom,Tailwind,Daisy ui, Tanstack query, Axios.
+
+- Authentication: Firebase
+
+- Back-End : Express,mongo Db
 
 
 

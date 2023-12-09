@@ -45,7 +45,7 @@ const WishList = () => {
                     Wishlist
                 </h2>
                {wishlists.length==0? <>
-               <p className=" my-5 text-xl text-center font-bold text-red-600">There is no blog in the wish list.</p>
+               <p className=" my-5 text-xl text-center font-bold ">There is no blog in your <span className="text-red-700">wish list.</span></p>
                </>
                :
                ''}
@@ -53,7 +53,7 @@ const WishList = () => {
             <div  >
                 {wishlists.map((wishlist) => (
                     <div key={wishlist._id} className="card my-5 lg:card-side bg-base-100 shadow-xl">
-                        <figure><img className="h-[25rem]" src={wishlist.imageURL} /></figure>
+                        <img className="h-[25rem ] w-[25rem]" src={wishlist.imageURL} />
                         <div className="card-body">
                             <h2 className="card-title">{wishlist.title}</h2>
                             <div className="badge badge-secondary bg-black">{wishlist.category}</div>

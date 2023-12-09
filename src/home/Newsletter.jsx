@@ -24,7 +24,7 @@ const Newsletter = () => {
                     onSubmit={handleSubmit}
                 >
                     <div className="join">
-                        <input type="email" className="input input-bordered join-item" placeholder="Email" />
+                        <input required type="email" className="input input-bordered join-item" placeholder="Email" />
                         <button type="submit"
 
                             className="btn join-item bg-black text-white rounded-r-full">Subscribe</button>

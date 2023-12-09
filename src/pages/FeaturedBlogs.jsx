@@ -31,7 +31,7 @@ const FeaturedBlogs = () => {
     return (
         <div>
             <div className='my-10'>
-                <h2 className='text-3xl font bold text-center'>Featured Blogs</h2>
+                <h2 className='text-3xl font-bold text-center'>Featured Blogs</h2>
             </div>
             <DataTable
                 

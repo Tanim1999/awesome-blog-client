@@ -67,7 +67,7 @@ const RecentBlog = () => {
             </div>
             {recentBlogs.map((blog) => (
                 <div key={blog._id} className="card my-5 lg:card-side bg-base-100 shadow-xl">
-                    <figure><img className="h-[25rem]" src={blog.imageURL} /></figure>
+                    <img className="h-[25rem] w-[25rem]" src={blog.imageURL} />
                     <div className="card-body">
                         <h2 className="card-title">{blog.title}</h2>
                         <div className="badge badge-secondary bg-black">{blog.category}</div>

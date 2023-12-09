@@ -1,88 +1,54 @@
 import { useState } from "react";
 import useBlogs from "../hooks/useBlogs";
-import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import Swal from "sweetalert2";
+import BlogCard from "./BlogCard";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import useTravel from "../hooks/useTravel";
+import useEducation from "../hooks/useEducation";
+import useTechnology from "../hooks/useTechnolgy";
+import useSports from "../hooks/useSports";
+import useEntertainment from "../hooks/useEntertainment";
+
+
 
 
 
 
 const AllBlog = () => {
-    const{user}= useAuth()
-
     const [search, setSearch] = useState('')
-    
-    const axiosPublic= useAxiosPublic()
-    
+    const [active, setActive] = useState(false)
+    const [blogs, refetch] = useBlogs(search)
+    const [travel, reTravel] = useTravel(search)
+    const [education, reEducation] = useEducation(search)
+    const [technology, reTechnology] = useTechnology(search)
+    const [sports, reSports] = useSports(search)
+    const[entertainment,reEntertainment]=useEntertainment(search)
+    console.log("travel", travel)
 
-    
-
-    const[active,setActive]=useState(false)
-    const [blogs,refetch] = useBlogs(search)
 
     const handleSearch = (e) => {
-        
+
         e.preventDefault()
         refetch()
+        reTravel()
+        reEducation()
+        reTechnology()
+        reSports()
+        reEntertainment()
         const searchText = e.target.search.value
         console.log(searchText)
         setSearch(searchText)
-        
-        
-        
-        
+
+
+
+
     }
-    const handleAddToWishList = async (blog)=>{
-        
-      
-    
-     const  uploadInfo = {
-        title: blog.title,
-        imageURL: blog.imageURL,
-        category: blog.category,
-        shortDescription: blog.shortDescription,
-        longDescription: blog.longDescription,
-        wishlistOf: user.displayName,
-        blogId:blog._id,
-        email: user.email,
-        
-    }
-    const wishlist = await axiosPublic.post('/wishlists', uploadInfo);
-       
-        console.log("aftr up",wishlist)
-        if (wishlist.data.insertedId) {
-            
-            
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `${blog.title} is added successfully.`,
-                showConfirmButton: false,
-                timer: 1500
-            });
-          
-
-        } else{
-             Swal.fire({
-                position: "top-end",
-                icon: "info",
-                title: `${blog.title} already exist in the wish list.`,
-                showConfirmButton: false,
-                timer: 3000
-            });
-            
-        }
-        
 
 
-     
-     
-    }
-   
 
-   
+
+
 
 
 
@@ -96,35 +62,68 @@ const AllBlog = () => {
                             <input name="search" className="input input-bordered join-item" placeholder="Search" />
                         </div>
                     </div>
-                    
+
                     <div className="indicator">
-                        
-                        <button type="submit"  className="btn btn-neutral join-item">Search</button>
+
+                        <button type="submit" className="btn btn-neutral join-item">Search</button>
                     </div>
                 </form>
-                <button onClick={()=>{setActive(!active)}} className={`btn ${active?"bg-red-700":"bg-black"} text-white`}>Default</button>
+                <button onClick={() => { setActive(!active) }} className={`btn ${active ? "bg-red-700" : "bg-black"} text-white`}>Default</button>
             </div>
-            <div  >
-                {blogs.map((blog) => (
-                    <div key={blog._id} className="card my-5 lg:card-side bg-base-100 shadow-xl">
-                        <figure><img className="h-[25rem]" src={blog.imageURL} /></figure>
-                        <div className="card-body">
-                            <h2 className="card-title">{blog.title}</h2>
-                            <div className="badge badge-secondary bg-black">{blog.category}</div>
+            <Tabs>
+                <TabList className="font-bold">
+                    <Tab >All blogs</Tab>
+                    <Tab>Travel</Tab>
+                    <Tab>Educational</Tab>
+                    <Tab>Technology</Tab>
+                    <Tab>Sports</Tab>
+                    <Tab>Entertainment</Tab>
+                </TabList>
 
-                            <p>{blog.shortDescription}</p>
-                            <div className="card-actions justify-end">
-                                <Link to={`/blogDetails/${blog._id}`}><button className="btn bg-black text-white">Details</button></Link>
-                                {user? <button 
-                                onClick={()=>handleAddToWishList(blog)} 
-                                className="btn bg-black text-white">Add to wishlist</button>:<Link to="/logIn"><button className="btn bg-black text-white">Add to wishlist</button></Link>}
-                            </div>
-                        </div>
+                <TabPanel>
+                    <div>
+                        {blogs.map((blog) => (
+                            <BlogCard key={blog._id} blog={blog}></BlogCard>
+                        ))}
                     </div>
-                ))}
+                </TabPanel>
+                <TabPanel>
+                    <div>
+                        {travel.map((travel) => (
+                            <BlogCard key={travel._id} blog={travel}></BlogCard>
+                        ))}
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    <div>
+                        {education.map((education) => (
+                            <BlogCard key={education._id} blog={education}></BlogCard>
+                        ))}
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    <div>
+                        {technology.map((technology) => (
+                            <BlogCard key={technology._id} blog={technology}></BlogCard>
+                        ))}
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    <div>
+                        {sports.map((sport) => (
+                            <BlogCard key={sport._id} blog={sport}></BlogCard>
+                        ))}
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                <div>
+                        {entertainment.map((entertainment) => (
+                            <BlogCard key={entertainment._id} blog={entertainment}></BlogCard>
+                        ))}
+                    </div>
+                </TabPanel>
+            </Tabs>
 
-
-            </div>
         </div>
     );
 };
