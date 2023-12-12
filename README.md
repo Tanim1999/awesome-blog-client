@@ -22,7 +22,7 @@ Website: [Awesome blog](https://6571cf5f9aa73914335634cb--teal-khapse-f882a2.net
 5. **Interactive Blogging Community:**
    - Engage with fellow bloggers and readers through comments. Share your thoughts, experiences, and insights to create a vibrant community.
 
-##Tachnologies used:
+## Tachnologies used:
 - Front end: React, React-router-dom,Tailwind,Daisy ui, Tanstack query, Axios,react-intersection-observer, react spring, react-table
 
 - Authentication: Firebase
